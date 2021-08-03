@@ -1,3 +1,6 @@
-# 242-a1
+# COSC242 - Assignment 1 
 
-Git Repository containing code for assignment 1 for COSC242
+## Group members
+* Connor Dobson - dobco402
+* Hayden Knox - hnoha805
+* Eddie Finlayson - fined080
