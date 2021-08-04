@@ -5,7 +5,7 @@
 #include "mylib.h"
 
 static void print_info(int freq, char *word) {
-    printf("-4d %s\n", freq, word);
+    printf("%-4d %s\n", freq, word);
 }
 
 int main(int argc, char* argv[]) {
@@ -16,18 +16,46 @@ int main(int argc, char* argv[]) {
         switch (option) {
             case 'd':
                 /* double hashing option */
+                break;
             case 'e':
                 /* display contents of hash table */
+                break;
             case 'p':
                 /* print stats */
+                break;
             case 's':
                 /* snapshot of table */
+                break;
             case 't':
                 /* tablesize */
+                break;
             case 'h':
-                /* display help message */
+                fprintf(stderr, "Usage: %s [OPTION]... <STDIN>\n", argv[0]);
+                fprintf(stderr, "\n");
+                fprintf(stderr, "Perform various operations using a hash table. By default, words are\nread from stdin and adding to the hash table, before being printed out\n alongside their frequencies to stdout.\n");
+                fprintf(stderr, "-d\t\tUse double hashing (linear probing is the default)\n");
+                fprintf(stderr, "-e\t\tDisplay entire contents of hash table on stderr\n");
+                fprintf(stderr, "-p\t\tPrint stats info instead of frequencies & words\n");
+                fprintf(stderr, "-s\tSNAPSHOTS\tShow SNAPSHOTS stats snapshots (if -p is used)\n");
+                fprintf(stderr, "-t\tTABLESIZE\tUse the first prime >= TABLESIZE as htable size\n");
+                fprintf(stderr, "\n");
+                fprintf(stderr, "-h\t\tDisplay this message\n");
+                return EXIT_FAILURE;
+                break;
             default:
-                /* display default message */
+                fprintf(stderr, "Usage: %s [OPTION]... <STDIN>\n", argv[0]);
+                fprintf(stderr, "\n");
+                fprintf(stderr, "Perform various operations using a hash table. By default, words are\nread from stdin and adding to the hash table, before being printed out\n alongside their frequencies to stdout.\n");
+                fprintf(stderr, "-d\t\tUse double hashing (linear probing is the default)\n");
+                fprintf(stderr, "-e\t\tDisplay entire contents of hash table on stderr\n");
+                fprintf(stderr, "-p\t\tPrint stats info instead of frequencies & words\n");
+                fprintf(stderr, "-s\tSNAPSHOTS\tShow SNAPSHOTS stats snapshots (if -p is used)\n");
+                fprintf(stderr, "-t\tTABLESIZE\tUse the first prime >= TABLESIZE as htable size\n");
+                fprintf(stderr, "\n");
+                fprintf(stderr, "-h\t\tDisplay this message\n");
+                return EXIT_FAILURE;
+                break;
         }
     }
+    return EXIT_SUCCESS;
 }

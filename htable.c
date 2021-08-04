@@ -13,87 +13,6 @@ struct htablerec {
     hashing_t method;
 };
 
-typedef enum hashing_e { LINEAR_P, DOUBLE_H } hashing_t;
-
-static unsigned int htable_word_to_int(char *word) {
-    unsigned int result = 0;
-
-    while (*word != '\0') {
-        result = (*word+++31 * result);
-    }
-    return result;
-}
-
-static unsigned int htable_hash(htable h, unsigned int i_key) {
-    return 1 + (i_key % (h->capacity - 1));
-}
-
-htable htable_new(int capacity) {
-    int i;
-    htable hash_table = emalloc(sizeof *hash_table);
-
-    hash_table->capacity = capacity;
-    hash_table->num_keys = 0;
-    hash_table->keys = emalloc(hash_table->capacity * sizeof hash_table->keys[0]);
-    hash_table->freqs = emalloc(hash_table->capacity * sizeof hash_table->frequency[0]);
-
-    for (i = 0; i < hash_table->capacity; i++) {
-        hash_table->keys[i] = NULL;
-    }
-
-    for (i = 0; i < hash_table->capacity; i++) {
-        hash_table->freqs[i] = 0;
-    }
-    
-    return hash_table;
-}
-
-void htable_free(htable h) {
-    free(h->keys);
-    free(h->freqs);
-    free(h);
-}
-
-int htable_insert(htable h, char *key) {
-    int i;
-    unsigned int index = htable_word_to_int(key);
-    int remainder = htable_hash(h, index);
-
-    if (h->keys[remainder] == NULL) {
-        h->num_keys++;
-        printf("NULL\n");
-        return 1;
-    }
-    if (h->keys[remainder] != NULL && strcmp(key, h->keys[remainder]) != 0) {
-        for (i = 0; i <= h->capacity; i++) {
-            if (h->keys[remainder] != NULL && h->capacity == i) {
-                i = 0;
-            }
-            if (h->keys[remainder] != NULL && h->capacity == i) {
-                printf("Not null\n");
-                h->num_keys++;
-            }
-            if (strcmp(key, h->keys[remainder]) == 0) {
-                h->keys[remainder] = key;
-            }
-        }
-    } else {
-        return 1;
-    }
-
-    return 0;
-}
-
-void htable_print(htable h) {
-    int i;
-
-    for (i = 0; i < h->capacity; i++) {
-        if (h->keys[i] != NULL) {
-            printf("%2d %s\n", i, h->keys[i] == NULL ? "" : h->keys[i]);
-        }
-    }
-}
-
 /**
  * Prints out a table showing what the following attributes were like
  * at regular intervals (as determined by num_stats) while the
@@ -155,5 +74,84 @@ static void print_stats_line(htable h, FILE *stream, int percent_full) {
         fprintf(stream, "%4d %10d %11.1f %10.2f %11d\n", percent_full, 
                 current_entries, at_home * 100.0 / current_entries,
                 average_collisions / current_entries, max_collisions);
+    }
+}
+
+static unsigned int htable_word_to_int(char *word) {
+    unsigned int result = 0;
+
+    while (*word != '\0') {
+        result = (*word+++31 * result);
+    }
+    return result;
+}
+
+static unsigned int htable_hash(htable h, unsigned int i_key) {
+    return 1 + (i_key % (h->capacity - 1));
+}
+
+htable htable_new(int capacity) {
+    int i;
+    htable hash_table = emalloc(sizeof *hash_table);
+
+    hash_table->capacity = capacity;
+    hash_table->num_keys = 0;
+    hash_table->keys = emalloc(hash_table->capacity * sizeof hash_table->keys[0]);
+    hash_table->freqs = emalloc(hash_table->capacity * sizeof hash_table->freqs[0]);
+
+    for (i = 0; i < hash_table->capacity; i++) {
+        hash_table->keys[i] = NULL;
+    }
+
+    for (i = 0; i < hash_table->capacity; i++) {
+        hash_table->freqs[i] = 0;
+    }
+    
+    return hash_table;
+}
+
+void htable_free(htable h) {
+    free(h->keys);
+    free(h->freqs);
+    free(h);
+}
+
+int htable_insert(htable h, char *key) {
+    int i;
+    unsigned int index = htable_word_to_int(key);
+    int remainder = htable_hash(h, index);
+
+    if (h->keys[remainder] == NULL) {
+        h->num_keys++;
+        printf("NULL\n");
+        return 1;
+    }
+    if (h->keys[remainder] != NULL && strcmp(key, h->keys[remainder]) != 0) {
+        for (i = 0; i <= h->capacity; i++) {
+            if (h->keys[remainder] != NULL && h->capacity == i) {
+                i = 0;
+            }
+            if (h->keys[remainder] != NULL && h->capacity == i) {
+                printf("Not null\n");
+                h->num_keys++;
+            }
+            if (strcmp(key, h->keys[remainder]) == 0) {
+                h->keys[remainder] = key;
+            }
+        }
+    } else {
+        return 1;
+    }
+
+    return 0;
+}
+
+void htable_print(htable h) {
+    int i;
+
+    for (i = 0; i < h->capacity; i++) {
+        if (h->keys[i] != NULL) {
+            printf("%2d %s\n", i, h->keys[i] == NULL ? "" : h->keys[i]);
+        }
     }
 }
