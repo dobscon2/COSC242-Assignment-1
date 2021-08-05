@@ -32,27 +32,27 @@ int main(int argc, char* argv[]) {
             case 'h':
                 fprintf(stderr, "Usage: %s [OPTION]... <STDIN>\n", argv[0]);
                 fprintf(stderr, "\n");
-                fprintf(stderr, "Perform various operations using a hash table. By default, words are\nread from stdin and adding to the hash table, before being printed out\n alongside their frequencies to stdout.\n");
+                fprintf(stderr, "Perform various operations using a hash table. By default, words are\nread from stdin and adding to the hash table, before being printed out\nalongside their frequencies to stdout.\n\n");
                 fprintf(stderr, "-d\t\tUse double hashing (linear probing is the default)\n");
                 fprintf(stderr, "-e\t\tDisplay entire contents of hash table on stderr\n");
                 fprintf(stderr, "-p\t\tPrint stats info instead of frequencies & words\n");
-                fprintf(stderr, "-s\tSNAPSHOTS\tShow SNAPSHOTS stats snapshots (if -p is used)\n");
-                fprintf(stderr, "-t\tTABLESIZE\tUse the first prime >= TABLESIZE as htable size\n");
+                fprintf(stderr, "-s SNAPSHOTS\tShow SNAPSHOTS stats snapshots (if -p is used)\n");
+                fprintf(stderr, "-t TABLESIZE\tUse the first prime >= TABLESIZE as htable size\n");
                 fprintf(stderr, "\n");
-                fprintf(stderr, "-h\t\tDisplay this message\n");
+                fprintf(stderr, "-h\t\tDisplay this message\n\n");
                 return EXIT_FAILURE;
                 break;
             default:
                 fprintf(stderr, "Usage: %s [OPTION]... <STDIN>\n", argv[0]);
                 fprintf(stderr, "\n");
-                fprintf(stderr, "Perform various operations using a hash table. By default, words are\nread from stdin and adding to the hash table, before being printed out\n alongside their frequencies to stdout.\n");
+                fprintf(stderr, "Perform various operations using a hash table. By default, words are\nread from stdin and adding to the hash table, before being printed out\nalongside their frequencies to stdout.\n\n");
                 fprintf(stderr, "-d\t\tUse double hashing (linear probing is the default)\n");
                 fprintf(stderr, "-e\t\tDisplay entire contents of hash table on stderr\n");
                 fprintf(stderr, "-p\t\tPrint stats info instead of frequencies & words\n");
-                fprintf(stderr, "-s\tSNAPSHOTS\tShow SNAPSHOTS stats snapshots (if -p is used)\n");
-                fprintf(stderr, "-t\tTABLESIZE\tUse the first prime >= TABLESIZE as htable size\n");
+                fprintf(stderr, "-s SNAPSHOTS\tShow SNAPSHOTS stats snapshots (if -p is used)\n");
+                fprintf(stderr, "-t TABLESIZE\tUse the first prime >= TABLESIZE as htable size\n");
                 fprintf(stderr, "\n");
-                fprintf(stderr, "-h\t\tDisplay this message\n");
+                fprintf(stderr, "-h\t\tDisplay this message\n\n");
                 return EXIT_FAILURE;
                 break;
         }
