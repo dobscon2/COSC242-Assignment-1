@@ -9,6 +9,16 @@ static void print_info(int freq, char *word) {
 }
 
 int main(int argc, char* argv[]) {
+    htable table = htable_new(113);
+    char word[80];
+
+    while (getword(word, sizeof word, stdin) != EOF) {
+        fprintf(stdout, "inserting %s\n", word);
+        htable_insert(table, word);
+    }
+
+    htable_print(table, stdout);
+    htable_free(table);
     const char *optstring = "d:e:p:s:t:h";
     char option;
 
