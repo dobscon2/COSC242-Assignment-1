@@ -57,5 +57,12 @@ int main(int argc, char* argv[]) {
                 break;
         }
     }
+
+/*
+    int enable_double = 0;
+    if(enable_double == 1){
+        enable_double = htable_new(table);
+    }
+*/
     return EXIT_SUCCESS;
 }

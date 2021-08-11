@@ -146,3 +146,16 @@ void htable_print(htable h, FILE *stream) {
         fprintf(stream, "%2d %s\n", i, h->keys[i] == NULL ? "" : h->keys[i]);
     }
 }
+
+
+/* Double hashing Method V1 */
+
+/*
+static unsigned int htable_double_hash(htable table, unsigned int i_key){
+    return 1 + i_key * (second_hash(i_key))%(table->capacity - 1);
+}
+
+static unsigned int second_hash(htable table, unsigned int i_key){
+    return (i_key % (table->capacity - 1));
+}
+*/
