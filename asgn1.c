@@ -8,6 +8,8 @@ static void print_info(int freq, char *word) {
     printf("%-4d %s\n", freq, word);
 }
 
+/* test */
+
 int main(int argc, char* argv[]) {
     const char *optstring = "d:e:p:s:t:h";
     char option;
