@@ -26,11 +26,14 @@ int main(int argc, char* argv[]) {
         switch (option) {
             case 'd':
                 /* double hashing option */
+                /* htable_double_hash(htable table, unsigned int i_key){      - Hayden 14/08/2021*/
                 break;
             case 'e':
                 /* display contents of hash table */
+                /* htable_print(htable h, FILE *stream)                       - Hayden 14/08/2021*/
                 break;
             case 'p':
+                /* htable_print_stats(htable h, FILE *stream, int num_stats)  - Hayden 14/08/2021*/
                 /* print stats */
                 break;
             case 's':
@@ -76,3 +79,32 @@ int main(int argc, char* argv[]) {
 */
     return EXIT_SUCCESS;
 }
+
+/* prime number checker - Hayden Knox 13/08/2021*/
+
+/*
+int prime_round(int input){
+ int i = input;
+ while(i >= input) {
+     i++;
+     if(i % 1 == 0 && i % i == 1){
+         printf("%d is a prime number?");
+         return i;
+         /* this i value needs to be the new capacity value for a hash table in 
+         the new_table() method call. And has to be use throughout the remaining methods*/
+
+         /* this wil have to be called in the main method. 
+     } else {
+         printf("%d is not a prime number?");
+         return 0;
+     }
+    }
+ }
+
+int main(){
+    int input;
+    scanf("%d Enter an int", &input);
+    prime_round(input);
+    return 1;
+}
+*/

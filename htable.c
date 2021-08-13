@@ -159,3 +159,5 @@ static unsigned int second_hash(htable table, unsigned int i_key){
     return (i_key % (table->capacity - 1));
 }
 */
+
+
