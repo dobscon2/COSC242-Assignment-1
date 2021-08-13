@@ -77,73 +77,99 @@ void htable_print_stats(htable h, FILE *stream, int num_stats) {
     fprintf(stream, "------------------------------------------------------\n\n");
 }
 
-static unsigned int htable_word_to_int(char *word) {
-    unsigned int result = 0;
-
-    while (*word != '\0') {
-        result = (*word+++31 * result);
-    }
-    return result;
-}
-
-static unsigned int htable_hash(htable h, unsigned int i_key) {
-    return 1 + (i_key % (h->capacity - 1));
-}
-
 htable htable_new(int capacity) {
     int i;
     htable h = emalloc(sizeof *h);
     h->capacity = capacity;
     h->num_keys = 0;
-    h->keys = emalloc(h->capacity * sizeof h->keys[0]);
-    for (i = 0; i < h->capacity; i++) {
+    h->freqs = emalloc(capacity * sizeof h->freqs[0]);
+    h->keys = emalloc(capacity * sizeof h->keys[0]);
+    
+    for (i = 0; i < capacity; i++) {
+        h->freqs[i] = 0;
         h->keys[i] = NULL;
     }
+    
     return h;
 }
 
 void htable_free(htable h) {
-    int i;
-    for (i = 0; i < h->capacity; i++) {
-        if (h->keys[i] != NULL) {
-            free(h->keys[i]);
-        }
-    }
     free(h->keys);
+    free(h->freqs);
     free(h);
 }
 
-int htable_insert(htable h, char *key) {
-    int attempts = 0;
-    unsigned int index = (htable_word_to_int(key)) % h->capacity;
+static unsigned int htable_word_to_int(char *word) {
+    unsigned int result = 0;
 
-    if (h->num_keys == h->capacity) {
-        return 0;
+    while (*word != '\0') {
+        result = (*word++ + 31 * result);
     }
+    return result;
+}
 
-    while (attempts < h->capacity) {
-        if (h->keys[index] == NULL) {
-            h->keys[index] = emalloc((strlen(key)+1) * sizeof h->keys[0][0]);
-            strcpy(h->keys[index], key);
-            h->num_keys++;
-            return 1;
-        } else if (strcmp(h->keys[index], key) == 0) {
-            attempts++;
+int htable_insert(htable h, char *str) {
+    unsigned int str_int;
+    unsigned int index;
+    unsigned int original;
+        
+    str_int = htable_word_to_int(str);
+    index = str_int % h->capacity;
+    original = index; 
+
+    if (h->keys[index] == NULL) {
+        h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
+        strcpy(h->keys[index], str);
+        h->freqs[index] = 1;
+        h->num_keys++;
+
+        return 1;
+    } else if (strcmp(h->keys[index], str) == 0) {
+        h->freqs[index]++;
+        
+        return h->freqs[index];
+    }
+    
+    while (h->keys[index] != NULL && strcmp(h->keys[index], str) != 0) {
+        index = (index + 1) % h->capacity;
+        if (index == original) {
             return 0;
-        } else {
-            if (attempts == h->capacity) {
-                return 0;
-            }
         }
-        index++;
+
+        if (h->keys[index] == NULL) {
+            h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
+            strcpy(h->keys[index], str);
+            h->freqs[index] = 1;
+            h->num_keys++;
+
+            return 1;
+        } else if (strcmp(h->keys[index], str) == 0) {
+            h->freqs[index]++;
+
+            return h->freqs[index];
+        }
     }
+    
     return 0;
 }
 
+
 void htable_print(htable h, FILE *stream) {
     int i;
+
     for (i = 0; i < h->capacity; i++) {
-        fprintf(stream, "%2d %s\n", i, h->keys[i] == NULL ? "" : h->keys[i]);
+        if (h->keys[i] != NULL) {
+            fprintf(stream, "%d %s\n", h->freqs[i], h->keys[i]);
+        }
+    }
+}
+
+void htable_print_entire_table(htable h, FILE *stream) {
+    int i;
+    fprintf(stream, "Pos Freq Stats Word\n");
+    fprintf(stream, "---------------------------\n");
+    for (i = 0; i < h->capacity; i++) {
+        fprintf(stream, "\%5d \%5d \5d   \%s\n", i, h->freqs[i], h->stats[i], h->keys[i]);
     }
 }
 
