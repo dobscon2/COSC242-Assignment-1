@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
                 break;
         }
     }
-    table = htable_new(h_size);
+    table = htable_new(h_size, do_double_hashing);
     while (getword(word, sizeof word, stdin) != EOF) {
         fprintf(stdout, "inserting %s\n", word);
         htable_insert(table, word);

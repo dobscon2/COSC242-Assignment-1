@@ -77,13 +77,19 @@ void htable_print_stats(htable h, FILE *stream, int num_stats) {
     fprintf(stream, "------------------------------------------------------\n\n");
 }
 
-htable htable_new(int capacity) {
+htable htable_new(int capacity, int enable_double) {
     int i;
     htable h = emalloc(sizeof *h);
     h->capacity = capacity;
     h->num_keys = 0;
     h->freqs = emalloc(capacity * sizeof h->freqs[0]);
     h->keys = emalloc(capacity * sizeof h->keys[0]);
+
+    if (enable_double == 1) {
+        h->method = DOUBLE_H;
+    } else {
+        h->method = LINEAR_P;
+    }
     
     for (i = 0; i < capacity; i++) {
         h->freqs[i] = 0;
