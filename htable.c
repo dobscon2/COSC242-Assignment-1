@@ -108,7 +108,8 @@ static unsigned int htable_word_to_int(char *word) {
     return result;
 }
 
-int htable_insert(htable h, char *str) {
+int htable_insert(htable h, char *str, int do_double_hashing) { /* this is to let all know that my double hashing method will soon be incorperated
+into this method so that both can work in the same method block of code*/
     unsigned int str_int;
     unsigned int index;
     unsigned int original;
@@ -176,7 +177,6 @@ void htable_print_entire_table(htable h, FILE *stream) {
 
 /* Double hashing Method V1 */
 
-/*
 static unsigned int htable_double_hash(htable table, unsigned int i_key){
     return 1 + i_key * (second_hash(i_key))%(table->capacity - 1);
 }
@@ -184,6 +184,32 @@ static unsigned int htable_double_hash(htable table, unsigned int i_key){
 static unsigned int second_hash(htable table, unsigned int i_key){
     return (i_key % (table->capacity - 1));
 }
-*/
+
+static int prime_round(int input)
+{
+    int i;
+    if (input <= 1)
+    {
+        input = 2;
+    }
+    for (;; input++)
+    {
+        i = 2;
+        while (i < input)
+        {
+            if (input % i == 0)
+            {
+                break;
+                /* this i value needs to be the new capacity value for a hash table in 
+         the new_table() method call. And has to be use throughout the remaining methods*/
+            }
+            i++;
+        }
+        if(i == input){
+            return input;
+
+        }
+    }
+
 
 
