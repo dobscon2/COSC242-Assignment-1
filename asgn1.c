@@ -104,16 +104,17 @@ int main(int argc, char* argv[]) {
         fprintf(stdout, "inserting %s\n", word);
         htable_insert(table, word);
     }
-    if(do_htable_print){
-        htable_print(table, stderr); 
+
+    if (do_htable_print == 1){
+        htable_print_entire_table(table, stderr); 
     }
 
     if (do_print_stats == 1) {
-        htable_print_stats(table, stdout, 1);
+        htable_print_stats(table, stdout, num_stats);
     }
 
     if (do_print_stats != 1) {
-        htable_print(table, stdout);
+        htable_print(table, stdout, print_info);
     }
     htable_free(table);
 
