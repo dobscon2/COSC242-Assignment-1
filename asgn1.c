@@ -107,7 +107,14 @@ int main(int argc, char* argv[]) {
     if(do_htable_print){
         htable_print(table, stderr); 
     }
-    htable_print(table, stdout);
+
+    if (do_print_stats == 1) {
+        htable_print_stats(table, stdout, 1);
+    }
+
+    if (do_print_stats != 1) {
+        htable_print(table, stdout);
+    }
     htable_free(table);
 
     return EXIT_SUCCESS;
