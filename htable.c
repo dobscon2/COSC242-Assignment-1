@@ -108,7 +108,7 @@ static unsigned int htable_word_to_int(char *word) {
     return result;
 }
 
-int htable_insert(htable h, char *str, int do_double_hashing) { /* this is to let all know that my double hashing method will soon be incorperated
+int htable_insert(htable h, char *str) { /* this is to let all know that my double hashing method will soon be incorperated
 into this method so that both can work in the same method block of code*/
     unsigned int str_int;
     unsigned int index;
@@ -170,19 +170,19 @@ void htable_print_entire_table(htable h, FILE *stream) {
     fprintf(stream, "Pos Freq Stats Word\n");
     fprintf(stream, "---------------------------\n");
     for (i = 0; i < h->capacity; i++) {
-        fprintf(stream, "\%5d \%5d \5d   \%s\n", i, h->freqs[i], h->stats[i], h->keys[i]);
+        fprintf(stream, "\%5d \%5d \%5d   \%s\n", i, h->freqs[i], h->stats[i], h->keys[i]);
     }
 }
 
 
 /* Double hashing Method V1 */
 
-static unsigned int htable_double_hash(htable table, unsigned int i_key){
-    return 1 + i_key * (second_hash(i_key))%(table->capacity - 1);
-}
-
 static unsigned int second_hash(htable table, unsigned int i_key){
     return (i_key % (table->capacity - 1));
+}
+
+static unsigned int htable_double_hash(htable table, unsigned int i_key){
+    return 1 + i_key * second_hash(table, i_key) % (table->capacity - 1);
 }
 
 static int prime_round(int input)
@@ -210,6 +210,6 @@ static int prime_round(int input)
 
         }
     }
-
+}
 
 

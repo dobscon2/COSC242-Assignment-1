@@ -102,10 +102,10 @@ int main(int argc, char* argv[]) {
     table = htable_new(h_size);
     while (getword(word, sizeof word, stdin) != EOF) {
         fprintf(stdout, "inserting %s\n", word);
-        htable_insert(table, word, do_double_hashing);
+        htable_insert(table, word);
     }
     if(do_htable_print){
-        htable_print(table, FILE *stream); 
+        htable_print(table, stderr); 
     }
     htable_print(table, stdout);
     htable_free(table);
