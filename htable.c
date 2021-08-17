@@ -122,10 +122,10 @@ into this method so that both can work in the same method block of code*/
     unsigned int index;
     unsigned int original;
     int attempt = 1;
-    if(h->DOUBLE_H){
-        htable_double_hash(htable table, unsigned int i_key);
-    }
     str_int = htable_word_to_int(str);
+    if(h->DOUBLE_H){
+        htable_double_hash(h, str, str_int);
+    }
     index = str_int % h->capacity;
     original = index; 
 
@@ -193,12 +193,12 @@ void htable_print_entire_table(htable h, FILE *stream) {
 
 /* Double hashing Method V1 */
 
-static unsigned int second_hash(htable table, unsigned int i_key){
-    return (i_key % (table->capacity - 1));
+static unsigned int second_hash(htable h, strin str, unsigned int str_int){
+    return (str_int % (h->capacity - 1));
 }
 
-static unsigned int htable_double_hash(htable table, unsigned int i_key){
-    return 1 + i_key * second_hash(table, i_key) % (table->capacity - 1);
+static unsigned int htable_double_hash(htable h, string str,  unsigned int str_int){
+    return 1 + str_int * second_hash(h, str_int) % (h->capacity - 1);
 }
 
 
