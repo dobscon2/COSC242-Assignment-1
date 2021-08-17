@@ -123,12 +123,8 @@ into this method so that both can work in the same method block of code*/
     unsigned int original;
     int attempt = 1;
     str_int = htable_word_to_int(str);
-    if(h->DOUBLE_H){
-        htable_double_hash(h, str, str_int);
-    }
-    index = str_int % h->capacity;
     original = index; 
-
+    
     if (h->keys[index] == NULL) {
         h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
         strcpy(h->keys[index], str);
@@ -149,7 +145,7 @@ into this method so that both can work in the same method block of code*/
             h->stats[index] = attempt;
             return 0;
         }
-
+            
         if (h->keys[index] == NULL) {
             h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
             strcpy(h->keys[index], str);
@@ -197,8 +193,8 @@ static unsigned int second_hash(htable h, char *str, unsigned int str_int){
     return (str_int % (h->capacity - 1));
 }
 
-static unsigned int htable_double_hash(htable h, char *str,  unsigned int str_int){
-    return 1 + str_int * second_hash(h, str_int) % (h->capacity - 1);
+static unsigned int htable_double_hash(htable h, char *str, unsigned int str_int){
+    return 1 + str_int * second_hash(h, str, str_int) % (h->capacity - 1);
 }
 
 
