@@ -122,7 +122,9 @@ into this method so that both can work in the same method block of code*/
     unsigned int index;
     unsigned int original;
     int attempt = 1;
-        
+    if(h->DOUBLE_H){
+        htable_double_hash(htable table, unsigned int i_key);
+    }
     str_int = htable_word_to_int(str);
     index = str_int % h->capacity;
     original = index; 
@@ -197,33 +199,6 @@ static unsigned int second_hash(htable table, unsigned int i_key){
 
 static unsigned int htable_double_hash(htable table, unsigned int i_key){
     return 1 + i_key * second_hash(table, i_key) % (table->capacity - 1);
-}
-
-static int prime_round(int input)
-{
-    int i;
-    if (input <= 1)
-    {
-        input = 2;
-    }
-    for (;; input++)
-    {
-        i = 2;
-        while (i < input)
-        {
-            if (input % i == 0)
-            {
-                break;
-                /* this i value needs to be the new capacity value for a hash table in 
-         the new_table() method call. And has to be use throughout the remaining methods*/
-            }
-            i++;
-        }
-        if(i == input){
-            return input;
-
-        }
-    }
 }
 
 

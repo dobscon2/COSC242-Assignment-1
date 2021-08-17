@@ -6,6 +6,7 @@
 
 int prime_round(int input)
 {
+    printf("this is working");
     int i;
     if (input <= 1)
     {
