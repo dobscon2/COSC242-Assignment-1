@@ -193,11 +193,11 @@ void htable_print_entire_table(htable h, FILE *stream) {
 
 /* Double hashing Method V1 */
 
-static unsigned int second_hash(htable h, strin str, unsigned int str_int){
+static unsigned int second_hash(htable h, char *str, unsigned int str_int){
     return (str_int % (h->capacity - 1));
 }
 
-static unsigned int htable_double_hash(htable h, string str,  unsigned int str_int){
+static unsigned int htable_double_hash(htable h, char *str,  unsigned int str_int){
     return 1 + str_int * second_hash(h, str_int) % (h->capacity - 1);
 }
 
