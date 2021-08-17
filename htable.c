@@ -77,6 +77,10 @@ void htable_print_stats(htable h, FILE *stream, int num_stats) {
     fprintf(stream, "------------------------------------------------------\n\n");
 }
 
+static unsigned int htable_step(htable h, unsigned int i_key) {
+    return 1 + (i_key % (h->capacity - 1));
+}
+
 htable htable_new(int capacity, int enable_double) {
     int i;
     htable h = emalloc(sizeof *h);
@@ -121,8 +125,12 @@ into this method so that both can work in the same method block of code*/
     unsigned int str_int;
     unsigned int index;
     unsigned int original;
+    unsigned int step;
     int attempt = 0;
     str_int = htable_word_to_int(str);
+    if (h->method == DOUBLE_H) {
+        step = htable_step(h, str_int);
+    }
     index = str_int % h->capacity;
     original = index; 
     
@@ -139,7 +147,11 @@ into this method so that both can work in the same method block of code*/
     }
     
     while (h->keys[index] != NULL && strcmp(h->keys[index], str) != 0) {
-        index = (index + 1) % h->capacity;
+        if (h->method == DOUBLE_H) {
+            index = (index + step) % h->capacity;
+        } else {
+            index = (index + 1) % h->capacity;
+        }
         attempt++;
         if (index == original) {
             return 0;
@@ -182,17 +194,6 @@ void htable_print_entire_table(htable h, FILE *stream) {
             fprintf(stream, "%5d %5d %5d   %s\n", i, h->freqs[i], h->stats[i], h->keys[i]);
         }
     }
-}
-
-
-/* Double hashing Method V1 */
-
-static unsigned int second_hash(htable h, char *str, unsigned int str_int){
-    return (str_int % (h->capacity - 1));
-}
-
-static unsigned int htable_double_hash(htable h, char *str, unsigned int str_int){
-    return 1 + str_int * second_hash(h, str, str_int) % (h->capacity - 1);
 }
 
 
