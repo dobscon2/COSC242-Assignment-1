@@ -121,8 +121,9 @@ into this method so that both can work in the same method block of code*/
     unsigned int str_int;
     unsigned int index;
     unsigned int original;
-    int attempt = 1;
+    int attempt = 0;
     str_int = htable_word_to_int(str);
+    index = str_int % h->capacity;
     original = index; 
     
     if (h->keys[index] == NULL) {
@@ -134,7 +135,6 @@ into this method so that both can work in the same method block of code*/
         return 1;
     } else if (strcmp(h->keys[index], str) == 0) {
         h->freqs[index]++;
-        h->stats[index] = attempt;
         return h->freqs[index];
     }
     
@@ -142,7 +142,6 @@ into this method so that both can work in the same method block of code*/
         index = (index + 1) % h->capacity;
         attempt++;
         if (index == original) {
-            h->stats[index] = attempt;
             return 0;
         }
             
@@ -155,7 +154,6 @@ into this method so that both can work in the same method block of code*/
             return 1;
         } else if (strcmp(h->keys[index], str) == 0) {
             h->freqs[index]++;
-            h->stats[index] = attempt;
             return h->freqs[index];
         }
     }
