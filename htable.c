@@ -143,7 +143,6 @@ into this method so that both can work in the same method block of code*/
     while (h->keys[index] != NULL && strcmp(h->keys[index], str) != 0) {
         index = (index + 1) % h->capacity;
         attempt++;
-        printf("attempts = %d\n", attempt);
         if (index == original) {
             h->stats[index] = attempt;
             return 0;
