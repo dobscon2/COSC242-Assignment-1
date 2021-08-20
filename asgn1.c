@@ -4,6 +4,8 @@
 #include "htable.h"
 #include "mylib.h"
 
+/* setting up a repository connection*/
+
 int prime_round(int input)
 {
     printf("this is working");
