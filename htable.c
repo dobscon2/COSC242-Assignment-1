@@ -120,8 +120,7 @@ static unsigned int htable_word_to_int(char *word) {
     return result;
 }
 
-int htable_insert(htable h, char *str) { /* this is to let all know that my double hashing method will soon be incorperated
-into this method so that both can work in the same method block of code*/
+int htable_insert(htable h, char *str) {
     unsigned int str_int;
     unsigned int index;
     unsigned int original;
@@ -152,10 +151,11 @@ into this method so that both can work in the same method block of code*/
         } else {
             index = (index + 1) % h->capacity;
         }
-        attempt++;
         if (index == original) {
             return 0;
         }
+
+        attempt++;
             
         if (h->keys[index] == NULL) {
             h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
