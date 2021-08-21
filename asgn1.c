@@ -5,22 +5,46 @@
 #include "mylib.h"
 
 /* setting up a repository connection*/
+/****************************************************************************
+ * @file asgn1.c 
+ * @author Connor Dobson    Student_ID: 
+ * @author Hayden Knox      Student_ID: 2485875
+ * 
+ * The purpose of this program is to respond to user inputs reading both a 
+ * specified text file and single letter characters entered by users.
+ * These characters dictate what functions are to be executed and perforemed 
+ * on the input text files.
+ ***************************************************************************/
 
+
+/****************************************************************************
+ * Function: 
+ * This method takes in an integer value and assesses if this value does or 
+ * doesn't equal a prime number. Initially the method checks if the input 
+ * variable is less than the value one by default. If so then the variable 
+ * input is assignment the value of two for minimum hash table size. 
+ * The itterator variable i incriments to check if the input variable is 
+ * dvisible by a factor. This loop repeatedly executes infinitely 
+ * incrementing the int input variable provided until either i is greater 
+ * than or equal to input. This new value of the variable input is the 
+ * nearest whole prime number to the user inpuit number specifying the size
+ * of a hash table.
+ * 
+ * @param input: 
+ * -> This method parameter is given by the prime_round(atoi(optarg)); method 
+ * call. Reading input provided from the terminal command line this line 
+ * converts the chracter input into and primative int value.
+ ***************************************************************************/
 int prime_round(int input)
 {
-    printf("this is working");
     int i;
-    if (input <= 1)
-    {
+    if (input <= 1){
         input = 2;
     }
-    for (;; input++)
-    {
+    for (;; input++){
         i = 2;
-        while (i < input)
-        {
-            if (input % i == 0)
-            {
+        while (i < input){
+            if (input % i == 0){
                 break;
                 /* this i value needs to be the new capacity value for a hash table in 
          the new_table() method call. And has to be use throughout the remaining methods*/
