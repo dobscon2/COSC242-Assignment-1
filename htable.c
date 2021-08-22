@@ -1,9 +1,46 @@
+/****************************************************************************
+ * @file htable.c 
+ * @author Connor Dobson    Student_ID: 
+ * @author Hayden Knox      Student_ID: 2485875
+ * 
+ * The purpose of this program is to respond to user inputs reading both a 
+ * specified text file and single letter characters entered by users.
+ * These characters dictate what functions are to be executed and perforemed 
+ * on the input text files.
+ ***************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "htable.h"
 #include "mylib.h"
 
+/****************************************************************************
+ * This struct is used to create a composite datatype declaration which 
+ * defines a group of listed variables under one variable type in a block of 
+ * computer memory. Each variable can be altered by use of a single pointer
+ * 
+ * Variables:
+ * @param capacity: 
+ * This variable defines the maximum size of a hash table which is a prime 
+ * number for more efficient hash table creation.
+ * @param num_keys: 
+ * This variable defines the number of words which have been inserted into 
+ * the hash table. 
+ * @param keys: 
+ * This variable represents the key value for an individual word which has 
+ * been inserted into a hash table.
+ * @param freqs:
+ * This variable represents the number of times which an individual word 
+ * occurs in a hash table and is determined by the number of insertion 
+ * function attempts.
+ * @param stats:
+ * This variable is used to store the various number of statistics for hash
+ * tables including, freqs, keys and num_keys
+ * @param method:    
+ * Is used to indicate what form of hashing method is to be used to store hash
+ * table entries, and dictate if the double or linear hashing method is used.
+ ***************************************************************************/
 struct htablerec {
     int capacity;
     int num_keys;
@@ -13,7 +50,8 @@ struct htablerec {
     hashing_t method;
 };
 
-/**
+/****************************************************************************
+ * Function:
  * Prints out a line of data from the hash table to reflect the state
  * the table was in when it was a certain percentage full.
  * Note: If the hashtable is less full than percent_full then no data
@@ -22,7 +60,7 @@ struct htablerec {
  * @param h - the hash table.
  * @param stream - a stream to print the data to.
  * @param percent_full - the point at which to show the data from.
- */
+ ***************************************************************************/
 static void print_stats_line(htable h, FILE *stream, int percent_full) {
     int current_entries = h->capacity * percent_full / 100;
     double average_collisions = 0.0;
@@ -47,7 +85,8 @@ static void print_stats_line(htable h, FILE *stream, int percent_full) {
     }
 }
 
-/**
+/****************************************************************************
+ * Function:
  * Prints out a table showing what the following attributes were like
  * at regular intervals (as determined by num_stats) while the
  * hashtable was being built.
@@ -62,7 +101,7 @@ static void print_stats_line(htable h, FILE *stream, int percent_full) {
  * @param h the hashtable to print statistics summary from.
  * @param stream the stream to send output to.
  * @param num_stats the maximum number of statistical snapshots to print.
- */
+ ***************************************************************************/
 void htable_print_stats(htable h, FILE *stream, int num_stats) {
     int i;
 
@@ -76,11 +115,38 @@ void htable_print_stats(htable h, FILE *stream, int num_stats) {
     }
     fprintf(stream, "------------------------------------------------------\n\n");
 }
-
+/****************************************************************************
+ * Function:
+ * This static method is used to hash words into specific indexes, once a index
+ * is occupied by a a hashed word this method moces the indexing insertion location
+ * to a new indexed location in order to find a new available index. 
+ * 
+ * @param htable h: 
+ * This variable represents the current instance of a hash table being processed 
+ * @param i_key:
+ * This variable is the index of a word whick has been keyed into the hash table.
+ * @return the new index of a hash table key value.
+ ***************************************************************************/
 static unsigned int htable_step(htable h, unsigned int i_key) {
     return 1 + (i_key % (h->capacity - 1));
 }
 
+/****************************************************************************
+ * Function:
+ * This method is used to create a new instance of a hash table and allocating 
+ * the memory required to create a new hash table instance. IN addition this 
+ * method also determines if a nerw hash table being created will employ the
+ * use of double hashing or linear hashing.
+ * 
+ * @param capacity:
+ * This variable defines the maximum number of possible indexes for a hash table.
+ * Every key value (word input) which is read will be allocated to a specific
+ * index which is withing the limit of the htable capacity
+ * @param: enable_double
+ * This variable which acts as a boolean flag described on the file asgn1.c
+ * is used to determine from the users command line input if they wish to perform 
+ * double hashing instead of linear hashing.
+****************************************************************************/
 htable htable_new(int capacity, int enable_double) {
     int i;
     htable h = emalloc(sizeof *h);
