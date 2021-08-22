@@ -137,8 +137,8 @@ int htable_insert(htable h, char *str) {
         h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
         strcpy(h->keys[index], str);
         h->freqs[index] = 1;
+        h->stats[h->num_keys] = attempt;
         h->num_keys++;
-        h->stats[index] = attempt;
         return 1;
     } else if (strcmp(h->keys[index], str) == 0) {
         h->freqs[index]++;
@@ -161,8 +161,8 @@ int htable_insert(htable h, char *str) {
             h->keys[index] = emalloc((strlen(str) + 1) * sizeof h->keys[0][0]);
             strcpy(h->keys[index], str);
             h->freqs[index] = 1;
+            h->stats[h->num_keys] = attempt;
             h->num_keys++;
-            h->stats[index] = attempt;
             return 1;
         } else if (strcmp(h->keys[index], str) == 0) {
             h->freqs[index]++;

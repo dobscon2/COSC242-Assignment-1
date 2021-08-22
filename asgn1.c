@@ -4,10 +4,9 @@
 #include "htable.h"
 #include "mylib.h"
 
-/* setting up a repository connection*/
 /****************************************************************************
  * @file asgn1.c 
- * @author Connor Dobson    Student_ID: 
+ * @author Connor Dobson    Student_ID: 1043665
  * @author Hayden Knox      Student_ID: 2485875
  * 
  * The purpose of this program is to respond to user inputs reading both a 
