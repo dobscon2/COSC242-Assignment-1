@@ -315,7 +315,7 @@ void htable_print(htable h, FILE *stream, void print_function(int freq, char *wo
  * Function:
  * This function prints out the entire contents of a hash table. While formating
  * the output of the hash table to print the adjacent indexed postion of the 
- * hashed key word, frequency of key word occourence and the statistics of 
+ * hashed key word, frequency of key word occurence and the statistics of 
  * collision attempts corresponding to each key word.
  * 
  * @param h: 
