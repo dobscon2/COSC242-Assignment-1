@@ -146,6 +146,9 @@ static unsigned int htable_step(htable h, unsigned int i_key) {
  * This variable which acts as a boolean flag described on the file asgn1.c
  * is used to determine from the users command line input if they wish to perform 
  * double hashing instead of linear hashing.
+ * @return h:
+ * Is the new instance of the hash table, with the assigned hashing table method
+ * and the allocted amount of memory for keys, and frequency of words/keys.
 ****************************************************************************/
 htable htable_new(int capacity, int enable_double) {
     int i;
@@ -156,10 +159,14 @@ htable htable_new(int capacity, int enable_double) {
     h->keys = emalloc(capacity * sizeof h->keys[0]);
     h->stats = emalloc(capacity * sizeof h->stats[0]);
 
+// This boolean if statement checks the second parameter of the htable_new() function
+// if thie value is passed in the header as a 1. The double hashing mthod is performed
+// which the structe variable method invikes the DOUBlE_H enumerated type.
+// if the value hasn'tr changed by default linear hashing insertion is performed.
     if (enable_double == 1) {
-        h->method = DOUBLE_H;
+        h->method = DOUBLE_H; // unless changed by user input
     } else {
-        h->method = LINEAR_P;
+        h->method = LINEAR_P; // default hash table insertion method
     }
     
     for (i = 0; i < capacity; i++) {
@@ -169,14 +176,31 @@ htable htable_new(int capacity, int enable_double) {
     
     return h;
 }
-
+/****************************************************************************
+ * Fucntion: 
+ * This method deallocates the memory used to store all of the values for the 
+ * hash table instance. This method deallocates the memopry used to store the
+ * memory used to store word keys, freauencies of words, and statistics of 
+ * the hash table/
+ * @param h:
+ * This variable is the instanciated struct hash table which is created by
+ * reading the command line specified text file as input.
+ ***************************************************************************/
 void htable_free(htable h) {
     free(h->keys);
     free(h->freqs);
     free(h->stats);
     free(h);
 }
-
+/****************************************************************************
+ * Fiunction:
+ * This function converts a word read in from the text file into an inreger 
+ * and returns this integer. As this function uses an unsigned int value, 
+ * @param word:
+ * Is the current read input string of text characters convernted into a single
+ * indexible key in the hash table,
+ * @return and integer value to index a key into a hash table.
+ ***************************************************************************/
 static unsigned int htable_word_to_int(char *word) {
     unsigned int result = 0;
 
@@ -185,7 +209,29 @@ static unsigned int htable_word_to_int(char *word) {
     }
     return result;
 }
-
+/****************************************************************************
+ * Function:
+ * The functions htable_insert takes a string key as a parameter and return
+ * the number of times that key has been entered into the hash table. In the event 
+ * that the table is full, htable_insert returns 0 when inserting a new key. If a key
+ * at a specific index is null the key number is incrimented and index is is 
+ * assigned a value of 1 to make its occupancy and is allocated a memory. 
+ * 
+ * For the double hashing htable_insert method the sorting routine calculates a 
+ * step by invoking the htable_step() function call before beginning to
+ * search the keys array. Instead of incrimenting the position each time a collision
+ * occurs, the step function calling is incrimented.
+ * 
+ * @param h:
+ * Is the current instance of a hash table which has beren created from a textfile 
+ * input by the command line.
+ * @param str:
+ * Is the string of characters or singular word which is read in as an input from
+ * the test file.
+ * @return
+ * @return
+ * @return
+****************************************************************************/
 int htable_insert(htable h, char *str) {
     unsigned int str_int;
     unsigned int index;
@@ -238,7 +284,24 @@ int htable_insert(htable h, char *str) {
     return 0;
 }
 
-
+/****************************************************************************
+ * Function:
+ * This function is responsible for printing out to the terminal the 
+ * content of the hash table instance for each hash table key word. 
+ * Including the number of frequncies each ndexed key word has occured. 
+ * And each indexed key word until the capacity of the hash table is met.
+ * 
+ * @param h:
+ * Is the current instance of the hash table which has been created from 
+ * either the linear or double hashing functions.
+ * @param stream:
+ * Is the input from the file read in as text input from the command line to 
+ * be processed into a hash table.
+ * @param print-function():
+ * This parameter is a recursive method call which prints out the frequency
+ * and indexed words which have been converted to integer keys that have been 
+ * inserted into the hash table.
+****************************************************************************/
 void htable_print(htable h, FILE *stream, void print_function(int freq, char *word)) {
     int i;
 
@@ -248,7 +311,20 @@ void htable_print(htable h, FILE *stream, void print_function(int freq, char *wo
         }
     }
 }
-
+/****************************************************************************
+ * Function:
+ * This function prints out the entire contents of a hash table. While formating
+ * the output of the hash table to print the adjacent indexed postion of the 
+ * hashed key word, frequency of key word occourence and the statistics of 
+ * collision attempts corresponding to each key word.
+ * 
+ * @param h: 
+ * Is the current instance of the hash table which has been created from 
+ * either the linear or double hashing functions.
+ * @param stream
+ * This parameter is the input from which the contenof indexed key words on
+ * a hash table has been read from. 
+****************************************************************************/
 void htable_print_entire_table(htable h, FILE *stream) {
     int i;
     fprintf(stream, "%5s  %5s  %5s  %5s\n", "Pos", "Freq", "Stats", "Word");
