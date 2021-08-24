@@ -24,6 +24,7 @@ void *erealloc(void *p, size_t s){
     return result;
 }
 
+/* gets words from input stream */
 int getword(char *s, int limit, FILE *stream){
     int c;
     char *w = s;
