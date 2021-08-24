@@ -1,6 +1,6 @@
 /****************************************************************************
  * @file htable.c 
- * @author Connor Dobson    Student_ID: 
+ * @author Connor Dobson    Student_ID: 1043665
  * @author Hayden Knox      Student_ID: 2485875
  * 
  * The purpose of this program is to respond to user inputs reading both a 
@@ -228,9 +228,13 @@ static unsigned int htable_word_to_int(char *word) {
  * @param str:
  * Is the string of characters or singular word which is read in as an input from
  * the test file.
- * @return
- * @return
- * @return
+ * @return In the case that there is no string in this hashtable index, the string is copied into 
+ * that index and sets the cells frequency in the array to equal 1. Then incrimenting the number 
+ * of keys and returning 1. 
+ * @return If during the text input insertion. The same charcter string is read the frequency
+ * is incrimented at that position. Then the frequency is returned.
+ * @return This return statement returns 0 if there isnt an avalable space in memory to
+ * fill the hash table, this infers the hash table is full.
 ****************************************************************************/
 int htable_insert(htable h, char *str) {
     unsigned int str_int;

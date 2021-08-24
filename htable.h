@@ -1,3 +1,14 @@
+/****************************************************************************
+ * @file htable.h 
+ * @author Connor Dobson    Student_ID: 1043665
+ * @author Hayden Knox      Student_ID: 2485875
+ * 
+ * The purpose of this program is to contain definitions of htable.c 
+ * functions to be used in the main methods within the function asgn1.c.
+ * These functions and thier associated variables need to be imported 
+ * into the C program using the #include statement. 
+ ***************************************************************************/
+
 #ifndef HTABLE_H_
 #define HTABLE_H_
 

@@ -1,10 +1,31 @@
+/****************************************************************************
+ * @file mylib.c 
+ * @author Connor Dobson    Student_ID: 
+ * @author Hayden Knox      Student_ID: 2485875
+ * 
+ * The purpose of this program is to respond to user inputs reading both a 
+ * specified text file and single letter characters entered by users.
+ * These characters dictate what functions are to be executed and perforemed 
+ * on the input text files.
+ ***************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "mylib.h"
 #include <assert.h>
 #include <ctype.h>
 
-/* allocates memory */
+/****************************************************************************
+ * Function:
+ * This function allocates memory needed to store a variable of a greater size
+ * 
+ * @param s: 
+ * This parameter represents the amount for memorey needed 
+ * to hold the entire contents of a hash table.
+ * @return result:
+ * This return statement returns the new amount of memory required to store 
+ * a hashtable
+ ***************************************************************************/
 void *emalloc(size_t s){
     void *result = malloc(s);
     if(NULL == result){
@@ -13,8 +34,18 @@ void *emalloc(size_t s){
     }
     return result;
 }
-
-/* reallocates memory when we need more size */
+/****************************************************************************
+ * Function: 
+ * This function reallocates memory when the maximum amount of allocated memory
+ * is met for a variable and allocates additional memory when more is required
+ * 
+ * @param s:
+ * This parameter represents the amount for memorey needed 
+ * to hold the entire contents of a hash table.
+ * @return result:
+ * This return statement returns the new amount of memory required to store 
+ * a hashtable
+ *****************************************************************************/
 void *erealloc(void *p, size_t s){
     void *result = realloc(p, s);
     if(NULL == result){
@@ -23,7 +54,21 @@ void *erealloc(void *p, size_t s){
     }
     return result;
 }
-
+/****************************************************************************
+ * Function:
+ * This function reads individual words seperated by whitespace characters.
+ * The textfile input is read from the command line input stream. This
+ * function reads in text words until the end of the file is reached.
+ * 
+ * @param char:
+ * This parameter is the current charcter read which signifies the beginning 
+ * of a string of charcters until white space is encountered.
+ * @param limit:
+ * 
+ * @param stream:
+ * Is the input from the file read in as text input from the command line to 
+ * be processed into a hash table.
+ ***************************************************************************/
 int getword(char *s, int limit, FILE *stream){
     int c;
     char *w = s;
