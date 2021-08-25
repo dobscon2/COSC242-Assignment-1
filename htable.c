@@ -159,14 +159,15 @@ htable htable_new(int capacity, int enable_double) {
     h->keys = emalloc(capacity * sizeof h->keys[0]);
     h->stats = emalloc(capacity * sizeof h->stats[0]);
 
-// This boolean if statement checks the second parameter of the htable_new() function
-// if thie value is passed in the header as a 1. The double hashing mthod is performed
-// which the structe variable method invikes the DOUBlE_H enumerated type.
-// if the value hasn'tr changed by default linear hashing insertion is performed.
+    /* This boolean if statement checks the second parameter of the htable_new() function
+     * if thie value is passed in the header as a 1. The double hashing mthod is performed
+     * which the structe variable method invikes the DOUBlE_H enumerated type.
+     * if the value hasn'tr changed by default linear hashing insertion is performed. */
+    
     if (enable_double == 1) {
-        h->method = DOUBLE_H; // unless changed by user input
+        h->method = DOUBLE_H; /* unless changed by user input */
     } else {
-        h->method = LINEAR_P; // default hash table insertion method
+        h->method = LINEAR_P; /* default hash table insertion method */
     }
     
     for (i = 0; i < capacity; i++) {
@@ -306,7 +307,7 @@ int htable_insert(htable h, char *str) {
  * and indexed words which have been converted to integer keys that have been 
  * inserted into the hash table.
 ****************************************************************************/
-void htable_print(htable h, FILE *stream, void print_function(int freq, char *word)) {
+void htable_print(htable h, void print_function(int freq, char *word)) {
     int i;
 
     for (i = 0; i < h->capacity; i++) {
