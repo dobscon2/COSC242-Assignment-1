@@ -15,7 +15,9 @@ Using double hashing compared to linear probing has resulted in less collisions,
 
 The following tables were using the war-and-peace-20.txt file located in the coursework folder.
 
-### Linear Probing
+The following tables below have a hash table capacity of 113
+
+### Linear Probing - Hash Table Capacity 113
 
 | Percent Full | Current Entries | Percent At Home | Average Collisions | Maximum Collisions |
 | ------------ | --------------- | --------------- | ------------------ | ------------------ |
@@ -30,7 +32,7 @@ The following tables were using the war-and-peace-20.txt file located in the cou
 | 90           | 101             | 49.5            | 3.03               | 42                 |
 | 100          | 113             | 46.0            | 6.60               | 107                |
 
-### Double Hashing
+### Double Hashing - Hash Table Capacity 113
 
 | Percent Full | Current Entries | Percent At Home | Average Collisions | Maximum Collisions |
 | ------------ | --------------- | --------------- | ------------------ | ------------------ |
@@ -44,3 +46,35 @@ The following tables were using the war-and-peace-20.txt file located in the cou
 | 80           | 90              | 53.3            | 0.82               | 9                  |
 | 90           | 101             | 49.5            | 1.12               | 9                  |
 | 100          | 113             | 46.0            | 2.99               | 58                 |
+
+The following tables below have a hash table capacity of 1109
+
+### Linear Probing - Hash Table Capacity 1109
+
+| Percent Full | Current Entries | Percent At Home | Average Collisions | Maximum Collisions |
+| ------------ | --------------- | --------------- | ------------------ | ------------------ |
+| 10           | 100             | 90.0            | 0.12               | 2                  |
+| 20           | 201             | 89.6            | 0.14               | 3                  |
+| 30           | 302             | 85.1            | 0.20               | 3                  |
+| 40           | 403             | 79.2            | 0.32               | 5                  |
+| 50           | 504             | 73.6            | 0.46               | 8                  |
+| 60           | 605             | 69.8            | 0.69               | 24                 |
+| 70           | 706             | 65.0            | 1.02               | 25                 |
+| 80           | 807             | 59.5            | 1.76               | 46                 |
+| 90           | 908             | 54.7            | 3.59               | 135                |
+| 100          | 1009            | 49.8            | 14.22              | 954                |
+
+### Double Hashing - Hash Table Capacity 1109
+
+| Percent Full | Current Entries | Percent At Home | Average Collisions | Maximum Collisions |
+| ------------ | --------------- | --------------- | ------------------ | ------------------ |
+| 10           | 100             | 92.0            | 0.08               | 1                  |
+| 20           | 201             | 90.5            | 0.10               | 2                  |
+| 30           | 302             | 86.1            | 0.17               | 2                  |
+| 40           | 403             | 80.4            | 0.27               | 4                  |
+| 50           | 504             | 74.4            | 0.37               | 4                  |
+| 60           | 605             | 71.4            | 0.50               | 11                 |
+| 70           | 706             | 66.7            | 0.71               | 14                 |
+| 80           | 807             | 61.0            | 1.06               | 14                 |
+| 90           | 908             | 56.6            | 1.52               | 48                 |
+| 100          | 1009            | 51.2            | 5.91               | 744                |
